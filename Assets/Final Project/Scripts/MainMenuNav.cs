@@ -21,6 +21,11 @@ public class MainMenuNav : MonoBehaviour
 
     public void PlayPressed()
     {
+        //reset game for level 1
+        PlayerPrefs.SetInt("SCORE", 0);
+        PlayerPrefs.SetInt("ACCURACY", 0);
+        PlayerPrefs.SetInt("SHOTS FIRED", 0);
+        PlayerPrefs.SetInt("HIT SHOTS", 0);
         //load first level
         SceneManager.LoadScene("Level_01");
     }

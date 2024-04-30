@@ -10,12 +10,11 @@ public class Target : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Bullet")
-        {
-            Debug.Log("Hit Target");
-            //get rid of target piece
-            //update player score (somehow)
-            Player player = FindAnyObjectByType(typeof(Player)) as Player;
-            player.UpdateScore(Points);
+        {            //get rid of target piece
+            Destroy(gameObject);
+            //update player score
+            GameObject player = GameObject.Find("Player");
+            player.GetComponent<Player>().UpdateScore(Points);
         }
     }
 

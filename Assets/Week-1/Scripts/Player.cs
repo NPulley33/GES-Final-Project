@@ -9,11 +9,10 @@ public class Player : MonoBehaviour
     [SerializeField] float rotation = 5.0f;
     [SerializeField] float jumpForce = 10f;
     int Score;
-    int ShotsFired;
-    int HitShots;
     float Accuracy;
 
-    [SerializeField] TextMeshProUGUI ScoreText; 
+    [SerializeField] TextMeshProUGUI ScoreText;
+    [SerializeField] TextMeshProUGUI AccuracyText; 
 
     public PlayerControls playerControls;
     [SerializeField] GameObject bulletPrefab;
@@ -44,7 +43,12 @@ public class Player : MonoBehaviour
         look = playerControls.Player.Look;
         fire = playerControls.Player.Fire;
 
-        Score = PlayerPrefs.GetInt("Score", 0);
+        Score = PlayerPrefs.GetInt("SCORE", 0);
+        Accuracy = PlayerPrefs.GetFloat("ACCURACY", 0);
+
+        ScoreText.text = $"Score: {Score}";
+        AccuracyText.text = $"Accuracy: {Accuracy * 100: 0.0}%";
+
     }
 
     private void OnEnable()
@@ -83,6 +87,7 @@ public class Player : MonoBehaviour
 
     public void UpdateScore(int score)
     {
+        Debug.Log("new score");
         Score += score;
         //update score text on screen
         ScoreText.text = $"Score: {Score}";
@@ -90,13 +95,14 @@ public class Player : MonoBehaviour
         PlayerPrefs.SetInt("SCORE", Score);
         PlayerPrefs.Save();
 
-        HitShots++;
+        PlayerPrefs.SetInt("HIT SHOTS", PlayerPrefs.GetInt("HIT SHOTS", 0) + 1);
         CalculateAccuracy();
     }
 
     void CalculateAccuracy()
     {
-        Accuracy = HitShots / ShotsFired;
+        Accuracy = (float)PlayerPrefs.GetInt("HIT SHOTS", 0) / (float)PlayerPrefs.GetInt("SHOTS FIRED", 0);
+        AccuracyText.text = $"Accuracy: {Accuracy * 100 : 0.0}%";
         PlayerPrefs.SetFloat("ACCURACY", Accuracy);
         PlayerPrefs.Save();
     }
@@ -173,8 +179,10 @@ public class Player : MonoBehaviour
 
     void Fire(InputAction.CallbackContext context) 
     {
-        Instantiate(bulletPrefab, transform.position, Camera.main.transform.rotation);
-        ShotsFired++;
+        //Instantiate(bulletPrefab, transform.position, Camera.main.transform.rotation);
+        Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), 
+            Camera.main.transform.rotation);
+        PlayerPrefs.SetInt("SHOTS FIRED", PlayerPrefs.GetInt("SHOTS FIRED", 0) + 1);
         CalculateAccuracy();
     }
 }

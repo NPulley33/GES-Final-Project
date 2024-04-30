@@ -21,11 +21,5 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
-        Debug.Log("triggered");
-        //if the bullet "collides" with a target
-        if (other.tag == "Target") 
-        {
-            other.GetComponent<EnemyCollisionDemo>().Damage();    
-        }
     }
 }

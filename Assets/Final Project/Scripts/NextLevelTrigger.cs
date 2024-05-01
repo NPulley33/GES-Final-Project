@@ -7,6 +7,7 @@ public class NextLevelTrigger : MonoBehaviour
 {
     [SerializeField] string NextLevel;
 
+    //loads next scene when a player enters the trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player") 

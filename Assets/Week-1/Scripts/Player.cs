@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
 
     Rigidbody rb;
 
+    [SerializeField] AudioSource BulletShot;
+    [SerializeField] AudioClip BulletShotClip;
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -48,7 +51,6 @@ public class Player : MonoBehaviour
 
         ScoreText.text = $"Score: {Score}";
         AccuracyText.text = $"Accuracy: {Accuracy * 100: 0.0}%";
-
     }
 
     private void OnEnable()
@@ -87,7 +89,6 @@ public class Player : MonoBehaviour
 
     public void UpdateScore(int score)
     {
-        Debug.Log("new score");
         Score += score;
         //update score text on screen
         ScoreText.text = $"Score: {Score}";
@@ -182,6 +183,10 @@ public class Player : MonoBehaviour
         //Instantiate(bulletPrefab, transform.position, Camera.main.transform.rotation);
         Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), 
             Camera.main.transform.rotation);
+
+        //play sound effect
+        BulletShot.PlayOneShot(BulletShotClip);
+
         PlayerPrefs.SetInt("SHOTS FIRED", PlayerPrefs.GetInt("SHOTS FIRED", 0) + 1);
         CalculateAccuracy();
     }

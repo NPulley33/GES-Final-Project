@@ -5,17 +5,38 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
 
-    [SerializeField] int Points;
+    [SerializeField] public int Points;
+
+    [SerializeField] AudioSource TargetHit;
+    [SerializeField] AudioClip TargetHitClip;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Bullet")
-        {            //get rid of target piece
-            Destroy(gameObject);
-            //update player score
-            GameObject player = GameObject.Find("Player");
-            player.GetComponent<Player>().UpdateScore(Points);
-        }
+        //if (other.tag == "Bullet")
+        //{
+        //    //find a way to check if bullet has already collided w/ smth
+        //    if (other.gameObject.GetComponent<Bullet>().hasCollided == true) return;
+
+        //    other.gameObject.GetComponent<Bullet>().hasCollided = true;
+
+        //    //get rid of target piece
+        //    Destroy(gameObject);
+
+        //    //update player score
+        //    GameObject player = GameObject.Find("Player");
+        //    player.GetComponent<Player>().UpdateScore(Points);
+
+        //    other.gameObject.GetComponent<Bullet>().hasCollided = false;
+        //    Debug.Log(other.gameObject.GetComponent<Bullet>().hasCollided + "target");
+        //}
+
+        //play sound effect
+        TargetHit.PlayOneShot(TargetHitClip);
+    }
+
+    public void PlaySound()
+    {
+        TargetHit.PlayOneShot(TargetHitClip);
     }
 
 }

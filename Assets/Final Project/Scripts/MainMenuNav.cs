@@ -23,9 +23,13 @@ public class MainMenuNav : MonoBehaviour
     {
         //reset game for level 1
         PlayerPrefs.SetInt("SCORE", 0);
-        PlayerPrefs.SetInt("ACCURACY", 0);
+        PlayerPrefs.SetFloat("ACCURACY", 0);
         PlayerPrefs.SetInt("SHOTS FIRED", 0);
         PlayerPrefs.SetInt("HIT SHOTS", 0);
+
+        //use for debugging or resetting the saved score
+        //PlayerPrefs.SetFloat("HIGH SCORE", 0);
+        
         //load first level
         SceneManager.LoadScene("Level_01");
     }

@@ -7,9 +7,6 @@ public class Target : MonoBehaviour
 
     [SerializeField] public int Points;
 
-    [SerializeField] AudioSource TargetHit;
-    [SerializeField] AudioClip TargetHitClip;
-
     private void OnTriggerEnter(Collider other)
     {
         //if (other.tag == "Bullet")
@@ -31,12 +28,6 @@ public class Target : MonoBehaviour
         //}
 
         //play sound effect
-        TargetHit.PlayOneShot(TargetHitClip);
-    }
-
-    public void PlaySound()
-    {
-        TargetHit.PlayOneShot(TargetHitClip);
     }
 
 }

@@ -30,13 +30,28 @@ public class Bullet : MonoBehaviour
             Debug.Log(hasCollided + "bullet");
             Target target = other.GetComponent<Target>();
 
-            target.PlaySound();
-
             GameObject player = GameObject.Find("Player");
             player.GetComponent<Player>().UpdateScore(target.Points);
 
             Destroy(other.gameObject);
             
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
+        if (collision.gameObject.tag == "Target")
+        {
+            hasCollided = true;
+            Debug.Log(hasCollided + "bullet");
+            Target target = collision.gameObject.GetComponent<Target>();
+
+            GameObject player = GameObject.Find("Player");
+            player.GetComponent<Player>().UpdateScore(target.Points);
+
+            Destroy(collision.gameObject);
+
         }
     }
 }

@@ -30,8 +30,9 @@ public class Player : MonoBehaviour
 
     Rigidbody rb;
 
-    [SerializeField] AudioSource BulletShot;
+    [SerializeField] AudioSource SoundSource;
     [SerializeField] AudioClip BulletShotClip;
+    [SerializeField] AudioClip TargetHitClip;
 
     private void Awake()
     {
@@ -98,6 +99,8 @@ public class Player : MonoBehaviour
 
         PlayerPrefs.SetInt("HIT SHOTS", PlayerPrefs.GetInt("HIT SHOTS", 0) + 1);
         CalculateAccuracy();
+
+        SoundSource.PlayOneShot(TargetHitClip);
     }
 
     void CalculateAccuracy()
@@ -185,7 +188,7 @@ public class Player : MonoBehaviour
             Camera.main.transform.rotation);
 
         //play sound effect
-        BulletShot.PlayOneShot(BulletShotClip);
+        SoundSource.PlayOneShot(BulletShotClip);
 
         PlayerPrefs.SetInt("SHOTS FIRED", PlayerPrefs.GetInt("SHOTS FIRED", 0) + 1);
         CalculateAccuracy();

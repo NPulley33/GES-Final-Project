@@ -269,8 +269,9 @@ MonoBehaviour:
   ScoreText: {fileID: 452153917}
   AccuracyText: {fileID: 761226966}
   bulletPrefab: {fileID: 2179270075570488827, guid: cb5acc3c313876245b0463962d269f92, type: 3}
-  BulletShot: {fileID: 148206551}
+  SoundSource: {fileID: 148206551}
   BulletShotClip: {fileID: 8300000, guid: 24851c043ac64e04192dc10f84aa68af, type: 3}
+  TargetHitClip: {fileID: 8300000, guid: 388845d4e02b33c4097800d11840854c, type: 3}
 --- !u!54 &148206546
 Rigidbody:
   m_ObjectHideFlags: 0

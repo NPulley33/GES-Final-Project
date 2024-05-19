@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -9,8 +10,7 @@ public class Bullet : MonoBehaviour
 
     private void Awake()
     {
-        //using this vs gameObject only destroys the script component
-        //adding 8f means that after 8 seconds it will destroy itself if it isn't told to sooner
+        //prevents stray bullets from going on forever if they don't collide w/ anything
         Destroy(gameObject, 8f);
 
         hasCollided = false;
@@ -24,10 +24,10 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
-        if (other.tag == "Target")
+        //check for what it has collided w/ and if it has already collided with an object
+        if (other.tag == "Target" && hasCollided == false)
         { 
             hasCollided = true;
-            Debug.Log(hasCollided + "bullet");
             Target target = other.GetComponent<Target>();
 
             GameObject player = GameObject.Find("Player");
@@ -35,23 +35,6 @@ public class Bullet : MonoBehaviour
 
             Destroy(other.gameObject);
             
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Destroy(gameObject);
-        if (collision.gameObject.tag == "Target")
-        {
-            hasCollided = true;
-            Debug.Log(hasCollided + "bullet");
-            Target target = collision.gameObject.GetComponent<Target>();
-
-            GameObject player = GameObject.Find("Player");
-            player.GetComponent<Player>().UpdateScore(target.Points);
-
-            Destroy(collision.gameObject);
-
         }
     }
 }

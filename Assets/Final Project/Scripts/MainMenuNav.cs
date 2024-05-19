@@ -10,7 +10,6 @@ public class MainMenuNav : MonoBehaviour
     [SerializeField] GameObject CreditsObjects;
     [SerializeField] GameObject InstructionObjects;
 
-
     public void StartPressed()
     {
         //disable main menu elements
